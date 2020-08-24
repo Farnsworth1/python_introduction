@@ -33,19 +33,46 @@ While there are numerous existing extensions, we can also write our own extensio
 
 1. run the following code in a command prompt to activate nbExtensions:
 `pip install jupyter_contrib_nbextensions && jupyter contrib nbextensions install`
-1. copy the extions folder, ex. ``extensions\default_cell`` in the nbextensions directory for your environment.
-your ``jupyter_contrib_extensions`` directory could be:
-``/usr/local/lib/python3.8/site-packages/jupyter_contrib_nbextensions/nbextensions``
+1. inside the extension directory you want to install run the following two commands
+    ``jupyter nbextension install <extension_name> --sys-prefix`` 
+    
+    ``jupyter nbextension enable <extension_name> --sys-prefix``
+    
+     for example if you want to install ``default_cell`` run the following two commands inside the directory `extensions\ext_default_cell`:
+    
+    ``jupyter nbextension install default_cell --sys-prefix`` 
+    
+    ``jupyter nbextension enable default_cell --sys-prefix``
+
 1. When you make a change to the extension files while developing and you want to see the effects in 
-a Jupyter Notebook,you need to run the command ``jupyter contrib nbextensions install`` to rewrite the Jupyter config files.
-Then, restart the notebook server to see your changes.
-1. In your jupyter server page you can activate/deactivate each extension under the tab ``Nbextensions``
+a Jupyter Notebook,you need to run the commands in the previous step
+1. In your jupyter server page you can also activate/deactivate each extension under the tab ``Nbextensions``
 
 ### Structure of a Jupyter Notebook Extension
 There are 3 parts (at minimum) to any Jupyter Notebook extension:
 1. ``description.yaml`` : A configuration file read by Jupyter
 1. ``main.js`` : The Javascript code for the extension itself
 1. ``README.md`` : A markdown description of extension
+
+Jupyter extensions can be distributed as packages as shown [here](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Distributing%20Jupyter%20Extensions%20as%20Python%20Packages.html#Example---Server-extension-and-nbextension)
+So ex. the package structure of ``default_cell`` extension looks like this:
+
+    │   .gitignore
+    │   MANIFEST.in
+    │   setup.py
+    │
+    ├───default_cell
+    │   │   __init__.py
+    │   │
+    │   └───static
+    │           description.yml
+    │           main.js
+    │           README.md
+    │
+    └───jupyter-config
+        └───nbconfig
+            └───notebook.d
+                    default_cell.json
 
 # Todos
 - After the first semester teaching whith these notebooks it became clear that some of the exercises require some rework. Currently, the explanation of the task is not always clear enough.
